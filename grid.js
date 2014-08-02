@@ -1,7 +1,13 @@
 'use strict';
 /* global $:false */
+/* global EventTarget:false */
+/* global Light:false */
 
 var lightGrid = (function( lightGrid ){
+
+  var funkyMonkey = function(){
+    console.log( this );
+  };
 
   // Calls light constructor function to create light objects
   // Accepts an Option object
@@ -13,7 +19,8 @@ var lightGrid = (function( lightGrid ){
     for( var y = 0; y < size; y++ ){
       grid.push([]);
       for( var x = 0; x < size; x++ ){
-        grid[y].push( new Light( optionData, { x : x, y : y } ) );
+        var light = new Light( optionData, { x : x, y : y } );
+        grid[y].push( light );
       }
     }
     return grid;
@@ -25,7 +32,6 @@ var lightGrid = (function( lightGrid ){
         list   = [];
 
     for( var y = 0, yLen = grid.length; y < yLen; y++ ){
-      
       output.append('<ul>');
       list = output.children('ul');
 
@@ -37,62 +43,6 @@ var lightGrid = (function( lightGrid ){
     }
     return output;
   };
-
-  // Light Object
-  var Light = function( optionData, coordinates ){
-
-    var el = $('<li>')
-      .addClass('light');
-
-    Object.defineProperties( this, {
-
-      el : {
-        value : el,
-        enumerable : true,
-      },
-
-      colorScheme : {
-        value : [ '#004358', '#1F8A70', '#BEDB39','#FFE11A', '#FD7400' ],
-        enumerable : true,
-        writable : true
-      },
-
-      colorIndex : {
-        value : 0,
-        writable : true,
-        enumerable : true
-      },
-
-      coordinates : {
-        value : coordinates,
-        enumerable : true
-      }
-    });
-
-    this.el.css('background-color', this.colorScheme[ this.colorIndex ]);
-
-    var lightObj = this;
-
-    this.el.on('click', function(){
-      lightObj.changeColor();
-    });
-  };
-
-  // Light Methods
-  
-  Object.defineProperties( Light.prototype, {
-
-    changeColor : {
-      value : function(){
-        if( this.colorIndex < this.colorScheme.length - 1 ){
-          this.colorIndex++;
-        } else {
-          this.colorIndex = 0;
-        }
-        this.el.css('background-color', this.colorScheme[ this.colorIndex ]);
-      }
-    }
-  });
 
   // Grid optionData Object
   
@@ -115,6 +65,8 @@ var lightGrid = (function( lightGrid ){
 
   var Grid = function( el, optionData ){
 
+    EventTarget.call( this );
+
     Object.defineProperties( this, {
 
       el : {
@@ -129,10 +81,40 @@ var lightGrid = (function( lightGrid ){
         value : createLightObjectArray( optionData )
       }
     });
+
+    var grid = this;
+  
+    this.el.on('click', function(e){
+
+      var light = $(e.target).data('light');
+      
+      if( typeof light === 'undefined' ){
+        return;
+      }
+
+      light.incrementNumber();
+      //Light.prototype.incrementNumber.call( light );
+
+      for( var y = 0, yLen = grid.lights.length; y < yLen; y++ ){
+        
+        var thisRow = grid.lights[y];
+
+        for( var x = 0, xLen = thisRow.length; x < xLen; x++ ){
+          // if ( thisRow[x].coordinates.x === light.coordinates.x || thisRow[x].coordinates.y === light.coordinates.y ){
+          //   thisRow[x].changeColor();
+          // }
+          if( thisRow[x].currentNumber === light.currentNumber ){
+            thisRow[x].changeColor();
+          }
+        }
+      }
+
+      document.onselectstart = function() { return false; };
+    });
   };
 
   // Grid Methods
-  Object.defineProperties( Grid.prototype, {
+  Grid.prototype = Object.create( EventTarget.prototype, {
 
     append : {
       value : function( parentElement ){

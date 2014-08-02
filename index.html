@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap 101 Template</title>
-
+  
+    <link href='http://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
     <!-- Bootstrap -->
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     
@@ -18,15 +19,26 @@
     <![endif]-->
   </head>
   <body>
+
+    <div class="container">
+      <h1>Sick Light Show</h1>
+      <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+          <div id="gridCanvas"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="eventObject.js"></script>
     <script src="grid.js"></script>
     <script src="light.js"></script>
     <script>
-      var grid = lightGrid.createGrid('#grid', {size : 8});
-      grid.append('body');
+      var grid = lightGrid.createGrid('#grid', {size : 6});
+      grid.append('#gridCanvas');
     </script>
   </body>
 </html>
