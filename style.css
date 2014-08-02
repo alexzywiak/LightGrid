@@ -1,0 +1,10 @@
+.light{
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+  margin-right: 5px;
+}
+
+ul {
+  margin-bottom: 5px;
+}
