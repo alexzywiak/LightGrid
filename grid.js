@@ -48,6 +48,8 @@ var lightGrid = (function( lightGrid ){
   
   var OptionData = function(){
 
+    var colorScheme = new ColorScheme;
+
     Object.defineProperties( this, {
 
       size : {
@@ -56,7 +58,7 @@ var lightGrid = (function( lightGrid ){
       },
 
       colorScheme : {
-        value : ( this.colorScheme || 'default' ),
+        value : ( colorScheme[ this.colorScheme ] || colorScheme.basic ),
         enumerable : true,
         writable : true
       }
@@ -83,9 +85,8 @@ var lightGrid = (function( lightGrid ){
     });
 
     var grid = this;
-  
-    this.el.on('click', function(e){
-
+    
+    var numberLight = function( e ){
       var light = $(e.target).data('light');
       
       if( typeof light === 'undefined' ){
@@ -104,12 +105,15 @@ var lightGrid = (function( lightGrid ){
           //   thisRow[x].changeColor();
           // }
           if( thisRow[x].currentNumber === light.currentNumber ){
-            thisRow[x].changeColor();
+            thisRow[x].toggle();
+            thisRow[x].setColor();
           }
         }
       }
+    };
 
-      document.onselectstart = function() { return false; };
+    this.el.on('click', function( e ){
+      numberLight(e);
     });
   };
 

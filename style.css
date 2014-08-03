@@ -1,5 +1,5 @@
 body{
-  background-image: url(brushed/brushed.png);
+  background-image: url(brushed/brushed-metal-background-1514.png);
   font-family: 'Abril Fatface', cursive;
 }
 body h1, h2, h3{
@@ -9,18 +9,44 @@ body h1, h2, h3{
 
 h1{
   font-size: 64px;
-  text-shadow:1px 1px 0px #07526e;
+
 }
+
+ul{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
 #gridCanvas{
+  display: inline-block;
   margin: 0 auto;
 }
 
-button{
+.text-center{
+  text-align: center;
+}
+
+li{
+  margin:0;
+  padding:0;
+}
+
+li{
   width:2em;
   height:2em;
   font-size:40px;
+  line-height: 1.75em;
   margin-left:.25em;
   margin-bottom:.25em;
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 25%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.65) 88%, rgba(0,0,0,0.65) 99%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(25%,rgba(0,0,0,0)), color-stop(38%,rgba(0,0,0,0)), color-stop(88%,rgba(0,0,0,0.65)), color-stop(99%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 25%,rgba(0,0,0,0) 38%,rgba(0,0,0,0.65) 88%,rgba(0,0,0,0.65) 99%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 25%,rgba(0,0,0,0) 38%,rgba(0,0,0,0.65) 88%,rgba(0,0,0,0.65) 99%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 25%,rgba(0,0,0,0) 38%,rgba(0,0,0,0.65) 88%,rgba(0,0,0,0.65) 99%); /* IE10+ */
+  background: radial-gradient(ellipse at center,  rgba(0,0,0,0) 25%,rgba(0,0,0,0) 38%,rgba(0,0,0,0.65) 88%,rgba(0,0,0,0.65) 99%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 
 .square {
@@ -36,8 +62,6 @@ button{
   position:relative;
   cursor:pointer;
   border: none;
-  background: #109bce;
-  background-image: linear-gradient(bottom, rgb(14,137,182) 0%, rgb(22,179,236) 100%);
   border-radius: 5px;
   box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #07526e, 0px 10px 5px #999;
 }
@@ -47,7 +71,7 @@ button{
   box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #07526e, 0px 5px 3px #999;
 }
 
-button:focus{
+li:focus{
   outline: none;
 }
 

@@ -1,11 +1,37 @@
 'use strict';
 /* global $:false */
+var ColorScheme = function(){
+
+  Object.defineProperties( this, {
+    
+    basic : {
+      value : { text : '#fff', off : '#161616', lights : [ '#004358', '#1F8A70', '#BEDB39','#FFE11A', '#FD7400' ]},
+      enumerable : true
+    },
+
+    vitaminC : {
+      value : { text : '#fff', off : '#161616', lights : [ '#004358', '#1F8A70', '#BEDB39','#FFE11A', '#FD7400' ] },
+      enumerable : true
+    },
+
+    oceanSunset : {
+      value : { text : '#fff', off : '#161616', lights : ['#405952', '#9C9B7A', '#FFD393', '#FF974F', '#F54F29']},
+      enumerable : true
+    },
+
+    kulerDj : {
+      value : { text : '#fff', off : '#333333', lights : ['#CF066B', '#009ACD', '#30CD00'] },
+      enumerable : true
+    }
+  });
+};
 
 // Light Object
 var Light = function( optionData, coordinates ){
 
-  var el = $('<button>')
-    .addClass('square');
+  var el = $('<li>').addClass('square');
+
+
 
   Object.defineProperties( this, {
 
@@ -14,8 +40,14 @@ var Light = function( optionData, coordinates ){
       enumerable : true,
     },
 
+    on : {
+      value : false,
+      enumerable : true,
+      writable : true
+    },
+
     colorScheme : {
-      value : [ '#004358', '#1F8A70', '#BEDB39','#FFE11A', '#FD7400' ],
+      value : optionData.colorScheme,
       enumerable : true,
       writable : true
     },
@@ -40,7 +72,8 @@ var Light = function( optionData, coordinates ){
 
   this.el
     .css({
-      'background-color' : this.colorScheme[ this.colorIndex ]
+      'background-color' : this.colorScheme.off,
+      'color' : this.colorScheme.text
     })
     .data( 'light', this )
     .html( this.currentNumber );
@@ -48,21 +81,41 @@ var Light = function( optionData, coordinates ){
 
 // Light Methods
 Object.defineProperties( Light.prototype, {
+  
+  toggle : {
+    value : function(){
+      if( this.on ){
+        this.on = false;
+      } else {
+        this.on = true;
+      }
+    }
+  },
+
+  setColor : {
+    value : function(){
+      if( this.on ){
+        this.changeColor();
+      } else {
+        this.el.css('background-color', this.colorScheme.off );
+      }
+    }
+  },
 
   changeColor : {
     value : function(){
-      if( this.colorIndex < this.colorScheme.length - 1 ){
+      if( this.colorIndex < this.colorScheme.lights.length - 1 ){
         this.colorIndex++;
       } else {
         this.colorIndex = 0;
       }
-      this.el.css('background-color', this.colorScheme[ this.colorIndex ]);
+      this.el.css('background-color', this.colorScheme.lights[ this.colorIndex ]);
     }
   },
 
   incrementNumber : {
     value : function(){
-      if( this.currentNumber < this.colorScheme.length - 1 ){
+      if( this.currentNumber < this.colorScheme.lights.length - 1 ){
         this.currentNumber++;
       } else {
         this.currentNumber = 0;

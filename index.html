@@ -22,11 +22,9 @@
 
     <div class="container">
       <h1>Sick Light Show</h1>
-      <div class="row">
-        <div class="col-sm-8 col-sm-offset-2">
+        <div class="text-center">
           <div id="gridCanvas"></div>
         </div>
-      </div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -37,7 +35,7 @@
     <script src="grid.js"></script>
     <script src="light.js"></script>
     <script>
-      var grid = lightGrid.createGrid('#grid', {size : 6});
+      var grid = lightGrid.createGrid('#grid', {size : 5, colorScheme : 'kulerDj'});
       grid.append('#gridCanvas');
     </script>
   </body>
